@@ -1,0 +1,4 @@
+INSERT INTO port ("name",capacity) VALUES
+	 ('Дальний',5),
+	 ('Солнечный',10),
+	 ('Восточный',7);
