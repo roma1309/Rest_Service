@@ -1,12 +1,14 @@
 package rest_service.dao.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import rest_service.dao.PortDao;
 import rest_service.model.entity.Port;
 import rest_service.repo.PortRepository;
 
 import java.util.List;
 
+@Repository
 public class PortDaoImpl implements PortDao {
     private final PortRepository portRepository;
 
