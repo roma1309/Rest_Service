@@ -12,7 +12,7 @@ public class Port {
     @NotEmpty
     private String name;
     @NotEmpty
-    private String capacity;
+    private int capacity;
 
     @OneToMany(mappedBy = "port", fetch = FetchType.LAZY)
     private List<Ship> ships;
@@ -33,11 +33,11 @@ public class Port {
         this.name = name;
     }
 
-    public String getCapacity() {
+    public int getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(String capacity) {
+    public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
 

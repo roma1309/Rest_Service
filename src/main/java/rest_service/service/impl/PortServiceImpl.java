@@ -1,5 +1,6 @@
 package rest_service.service.impl;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +23,6 @@ public class PortServiceImpl implements PortService {
         this.shipDao = shipDao;
     }
 
-    @Autowired
-
-
     @Override
     public ResponseEntity<List<Port>> readAllPorts() {
         return ResponseEntity.ok(portDao.selectAllPorts());
@@ -38,6 +36,10 @@ public class PortServiceImpl implements PortService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         final int shipsInPortCount = shipDao.selectShipsCountByPortId(id);
-        return null;
+        final JSONObject jsonObject = new JSONObject();
+        jsonObject.put("total", port.getCapacity());
+        jsonObject.put("uses", shipsInPortCount);
+        jsonObject.put("free", (port.getCapacity() - shipsInPortCount));
+        return ResponseEntity.ok(jsonObject.toString());
     }
 }

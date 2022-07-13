@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import rest_service.model.entity.Port;
 import rest_service.service.PortService;
-import rest_service.service.impl.PortServiceImpl;
 
 import java.util.List;
 

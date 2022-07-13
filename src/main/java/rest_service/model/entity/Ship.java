@@ -13,6 +13,7 @@ public class Ship {
     @NotEmpty
     private String name;
     @NotEmpty
+    @Enumerated(EnumType.STRING)
     private ShipStatusType status;
 
     @ManyToOne(cascade = CascadeType.ALL)
