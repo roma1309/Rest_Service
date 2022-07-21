@@ -45,7 +45,7 @@ public class ShipDaoImpl implements ShipDao {
 
     @Override
     public void deleteShipById(long id) {
-        shipRepository.removeById(id);
+        shipRepository.deleteById(id);
     }
 
     @Override

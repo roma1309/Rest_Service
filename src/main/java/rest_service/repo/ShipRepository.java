@@ -12,7 +12,7 @@ public interface ShipRepository extends JpaRepository<Ship, Long> {
 
     Ship findById(long id);
 
-    void removeById(long id);
+    void deleteById(long id);
 
     int countAllByPortId(long id);
 

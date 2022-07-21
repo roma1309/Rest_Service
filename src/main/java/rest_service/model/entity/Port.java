@@ -14,7 +14,7 @@ public class Port {
     @NotEmpty
     private int capacity;
 
-    @OneToMany(mappedBy = "port", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "port", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Ship> ships;
 
     public Long getId() {
@@ -47,5 +47,15 @@ public class Port {
 
     public void setShips(List<Ship> ships) {
         this.ships = ships;
+    }
+
+    @Override
+    public String toString() {
+        return "Port{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", capacity=" + capacity +
+                ", ships=" + ships +
+                '}';
     }
 }
