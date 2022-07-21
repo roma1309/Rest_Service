@@ -18,8 +18,4 @@ public interface ShipDao {
 
     void deleteShipById(long id);
 
-    void updateShipStatusById(long id, ShipStatusType status);
-
-    void updateShipPortIdById(long id, Long portId);
-
 }

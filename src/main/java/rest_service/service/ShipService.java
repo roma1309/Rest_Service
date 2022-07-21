@@ -1,5 +1,7 @@
 package rest_service.service;
 
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import rest_service.model.dto.ShipDto;
 import rest_service.model.entity.Ship;

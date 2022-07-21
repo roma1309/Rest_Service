@@ -48,13 +48,4 @@ public class ShipDaoImpl implements ShipDao {
         shipRepository.deleteById(id);
     }
 
-    @Override
-    public void updateShipStatusById(long id, ShipStatusType status) {
-
-    }
-
-    @Override
-    public void updateShipPortIdById(long id, Long portId) {
-
-    }
 }

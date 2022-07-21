@@ -95,6 +95,49 @@ public class ShipServiceImpl implements ShipService {
 
     @Override
     public ResponseEntity<ShipStatus> updateShipStatus(long id, Long portId, ShipStatus status) {
-        return null;
+        System.out.println(portId);
+        final Ship ship = shipDao.selectShipById(id);
+        if (ship == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        ShipStatusType shipStatusType = ShipStatusType.getStatusType(status.getStatus());
+        if (shipStatusType == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        switch (shipStatusType) {
+            case SEA:
+                if (ship.getStatus() != ShipStatusType.SEA) {
+                    ship.setStatus(ShipStatusType.SEA);
+                    ship.setPort(null);
+                    shipDao.insertShip(ship);
+                    System.out.println("status -- " + shipStatusType);
+                }
+                break;
+            case PORT:
+                if (ship.getStatus() != ShipStatusType.PORT) {
+                    if (portId == 0) {
+                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+                    }
+                    final Port port = portDao.selectPortById(portId);
+                    System.out.println(port.toString());
+                    if (port == null) {
+                        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                    }
+                    final int shipsInPortCount = shipDao.selectShipsCountByPortId(portId);
+                    if (shipsInPortCount < port.getCapacity()) {
+                        ship.setStatus(ShipStatusType.PORT);
+                        ship.setPort(port);
+                        shipDao.insertShip(ship);
+                    } else {
+                        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+                    }
+                }
+                break;
+            default:
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        ShipStatus newShipStatus = new ShipStatus();
+        newShipStatus.setStatus(ship.getStatus().name());
+        return ResponseEntity.ok(newShipStatus);
     }
 }

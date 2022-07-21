@@ -119,9 +119,38 @@ public class ShipController {
 
     //---------------------------------------------------------------------------------------
     @PutMapping("/{id}/status")
+    @ApiOperation(
+            value = "Изменить местоположение корабля",
+            httpMethod = "PUT",
+            produces = "application/json",
+            response = ShipStatus.class
+    )
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Неверный статус"),
+            @ApiResponse(code = 404, message = "Корабль или порт не найдены"),
+            @ApiResponse(code = 422, message = "Порт заполнен"),
+            @ApiResponse(code = 500, message = "Внутренняя ошибка")
+    })
     public ResponseEntity<ShipStatus> putShipStatus(
+            @ApiParam(
+                    value = "id корабля",
+                    name = "id",
+                    required = true,
+                    example = "12"
+            )
             @PathVariable(value = "id") final long id,
+            @ApiParam(
+                    value = "id порта (необходимо передавать при заходе корабля в порт)",
+                    name = "port_id",
+                    example = "3"
+            )
             @RequestParam(value = "port_id", required = false) final Long portId,
+            @ApiParam(
+                    value = "JSON-структура местоположения корабля",
+                    name = "status",
+                    required = true
+            )
             @RequestBody final ShipStatus status
     ) {
         return shipService.updateShipStatus(id, portId, status);
